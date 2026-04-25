@@ -1,0 +1,90 @@
+export const blogPosts = [
+  {
+    slug: 'why-smes-fail-at-inventory-control',
+    title: 'Why SMEs Fail at Inventory Control',
+    category: 'Warehouse & Inventory',
+    frequency: 'Weekly Insight',
+    source: 'LinkedIn Article',
+    status: 'Planned',
+    excerpt:
+      'Most inventory problems are not system problems first. They are process, ownership, and control problems.',
+    audience: 'SME owners, warehouse managers, finance controllers',
+    cta: 'Explore Inventory Tools',
+    ctaLink: '/products/excel-tools',
+  },
+  {
+    slug: 'how-to-build-warehouse-sop',
+    title: 'How to Build a Warehouse SOP That Actually Works',
+    category: 'SOP & Control',
+    frequency: 'Monthly Guide',
+    source: 'SEO Article',
+    status: 'Planned',
+    excerpt:
+      'A practical approach to building warehouse SOPs that employees can follow and management can audit.',
+    audience: 'Operations managers, SCM teams, warehouse supervisors',
+    cta: 'View SOP Templates',
+    ctaLink: '/products/sop-control',
+  },
+  {
+    slug: 'excel-vs-power-bi-for-sme-reporting',
+    title: 'Excel vs Power BI for SME Reporting',
+    category: 'Data Products',
+    frequency: 'Weekly Insight',
+    source: 'LinkedIn Article',
+    status: 'Planned',
+    excerpt:
+      'Choosing between Excel and Power BI depends on data maturity, refresh needs, users, and decision frequency.',
+    audience: 'Managers, analysts, SME owners',
+    cta: 'Explore Data Products',
+    ctaLink: '/products/data-products',
+  },
+  {
+    slug: 'how-to-automate-daily-sales-reports',
+    title: 'How to Automate Daily Sales Reports',
+    category: 'Reporting Automation',
+    frequency: 'Monthly Guide',
+    source: 'SEO Article',
+    status: 'Planned',
+    excerpt:
+      'Daily reporting should not depend on manual exports, formatting, and WhatsApp follow-ups.',
+    audience: 'Sales managers, finance teams, business owners',
+    cta: 'View Reporting Products',
+    ctaLink: '/products/data-products',
+  },
+  {
+    slug: 'why-audit-findings-do-not-close',
+    title: 'Why Audit Findings Do Not Close',
+    category: 'Audit & Governance',
+    frequency: 'Weekly Insight',
+    source: 'LinkedIn Article',
+    status: 'Planned',
+    excerpt:
+      'Audit findings fail when ownership, evidence, deadlines, and re-audit rules are weak.',
+    audience: 'Audit teams, management, compliance teams',
+    cta: 'View Control Templates',
+    ctaLink: '/products/sop-control',
+  },
+  {
+    slug: 'small-business-apps-before-enterprise-erp',
+    title: 'When Small Business Apps Make More Sense Than Enterprise ERP',
+    category: 'Small Applications',
+    frequency: 'Monthly Guide',
+    source: 'SEO Article',
+    status: 'Planned',
+    excerpt:
+      'Some operational problems need focused workflow apps before expensive enterprise transformation.',
+    audience: 'SME owners, operations managers, transformation teams',
+    cta: 'Explore Business Apps',
+    ctaLink: '/products/small-apps',
+  },
+]
+
+export const blogCategories = [
+  'All',
+  'SOP & Control',
+  'Warehouse & Inventory',
+  'Data Products',
+  'Reporting Automation',
+  'Audit & Governance',
+  'Small Applications',
+]
