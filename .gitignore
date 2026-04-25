@@ -26,3 +26,8 @@ Thumbs.db
 # Local PHP/API secrets if you keep copies locally
 api/config.php
 api/.env
+
+api/config.php
+.env
+node_modules/
+dist/
