@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { navLinks } from '../../data/navLinks'
 import { productCategories } from '../../data/products'
 import { servicePackages } from '../../data/services'
@@ -10,7 +10,17 @@ import { caseStudies } from '../../data/caseStudies'
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(null)
   const headerRef = useRef(null)
+  const location = useLocation()
 
+  function isRouteActive(path) {
+  if (openMenu) return false
+
+  if (path === '/') {
+    return location.pathname === '/'
+  }
+
+  return location.pathname.startsWith(path)
+}
   useEffect(() => {
     function handleClickOutside(event) {
       if (openMenu && headerRef.current && !headerRef.current.contains(event.target)) {
@@ -45,16 +55,14 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
         <Link to="/" onClick={closeMenu}>
           <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-2xl bg-blue-500 text-sm font-black text-white shadow-lg shadow-blue-500/25">
-              NG
-            </div>
+            <BrandMark size="header" />
 
             <div>
-              <div className="text-base font-bold tracking-tight text-white">
-                NG Business Systems
+              <div className="font-[Georgia] text-xl font-semibold tracking-tight text-white">
+                NG Advisory Co.
               </div>
               <div className="text-xs text-slate-400">
-                SOPs · Data Products · Business Apps
+                Business Control · Data Products · Practical Systems
               </div>
             </div>
           </div>
@@ -68,12 +76,16 @@ export default function Header() {
                   key={link.path}
                   type="button"
                   onClick={() => setOpenMenu(openMenu === 'products' ? null : 'products')}
-                  className={`text-sm font-semibold transition ${openMenu === 'products'
-                      ? 'text-blue-300'
-                      : 'text-slate-300 hover:text-white'
-                    }`}
+                  className={`text-sm font-semibold transition ${
+  openMenu === 'products' || isRouteActive('/products')
+    ? 'text-blue-300'
+    : 'text-slate-300 hover:text-white'
+}`}
                 >
-                  Products
+                  <span className="inline-flex items-center gap-1.5">
+                    Products
+                    <span className="text-[10px] leading-none">▼</span>
+                  </span>
                 </button>
               )
             }
@@ -84,12 +96,15 @@ export default function Header() {
                   key={link.path}
                   type="button"
                   onClick={() => setOpenMenu(openMenu === 'services' ? null : 'services')}
-                  className={`text-sm font-semibold transition ${openMenu === 'services'
+                  className={`text-sm font-semibold transition ${openMenu === 'services' || isRouteActive('/services')
                       ? 'text-blue-300'
                       : 'text-slate-300 hover:text-white'
                     }`}
                 >
-                  Services
+                  <span className="inline-flex items-center gap-1.5">
+                    Services
+                    <span className="text-[10px] leading-none">▼</span>
+                  </span>
                 </button>
               )
             }
@@ -100,34 +115,39 @@ export default function Header() {
                   key={link.path}
                   type="button"
                   onClick={() => setOpenMenu(openMenu === 'expertise' ? null : 'expertise')}
-                  className={`text-sm font-semibold transition ${openMenu === 'expertise'
+                  className={`text-sm font-semibold transition ${openMenu === 'expertise' || isRouteActive('/expertise')
                       ? 'text-blue-300'
                       : 'text-slate-300 hover:text-white'
                     }`}
                 >
-                  Expertise
+                  <span className="inline-flex items-center gap-1.5">
+                    Expertise
+                    <span className="text-[10px] leading-none">▼</span>
+                  </span>
                 </button>
               )
             }
 
-if (link.path === '/case-studies') {
-  return (
-    <button
-      key={link.path}
-      type="button"
-      onClick={() =>
-        setOpenMenu(openMenu === 'case-studies' ? null : 'case-studies')
-      }
-      className={`text-sm font-semibold transition ${
-        openMenu === 'case-studies'
-          ? 'text-blue-300'
-          : 'text-slate-300 hover:text-white'
-      }`}
-    >
-      Case Studies
-    </button>
-  )
-}
+            if (link.path === '/case-studies') {
+              return (
+                <button
+                  key={link.path}
+                  type="button"
+                  onClick={() =>
+                    setOpenMenu(openMenu === 'case-studies' ? null : 'case-studies')
+                  }
+                  className={`text-sm font-semibold transition ${openMenu === 'case-studies' || isRouteActive('/case-studies')
+                      ? 'text-blue-300'
+                      : 'text-slate-300 hover:text-white'
+                    }`}
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    Case Studies
+                    <span className="text-[10px] leading-none">▼</span>
+                  </span>
+                </button>
+              )
+            }
 
             return (
               <NavLink
@@ -135,11 +155,12 @@ if (link.path === '/case-studies') {
                 to={link.path}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive
-                    ? 'text-blue-300'
-                    : 'text-slate-300 hover:text-white'
-                  }`
-                }
+  `text-sm font-semibold transition ${
+    isActive && !openMenu
+      ? 'text-blue-300'
+      : 'text-slate-300 hover:text-white'
+  }`
+}
               >
                 {link.label}
               </NavLink>
@@ -176,6 +197,36 @@ if (link.path === '/case-studies') {
   )
 }
 
+function BrandMark({ size = 'header' }) {
+  const wrapper =
+    size === 'large'
+      ? 'h-28 w-28 rounded-3xl'
+      : 'h-12 w-12 rounded-xl'
+
+  const ngText =
+    size === 'large'
+      ? 'text-[34px]'
+      : 'text-[15px]'
+
+  const coText =
+    size === 'large'
+      ? 'text-[15px]'
+      : 'text-[7px]'
+
+  return (
+    <div
+      className={`flex shrink-0 flex-col items-center justify-center border border-blue-900/70 bg-[#041527] shadow-lg shadow-blue-950/30 ${wrapper}`}
+    >
+      <div className={`font-[Georgia] font-bold leading-none text-white ${ngText}`}>
+        NG
+      </div>
+      <div className={`mt-1 font-[Georgia] font-semibold leading-none tracking-[0.04em] text-slate-300 ${coText}`}>
+        &amp;Co.
+      </div>
+    </div>
+  )
+}
+
 function ProductMegaMenu({ onClose }) {
   return (
     <div className="absolute left-0 top-full w-full border-t border-white/10 bg-slate-950 shadow-2xl shadow-black/30">
@@ -187,7 +238,7 @@ function ProductMegaMenu({ onClose }) {
           onClose={onClose}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_260px]">
+        <div className="grid gap-8 lg:grid-cols-[1fr_280px]">
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
             {productCategories.map((category) => (
               <div key={category.id}>
@@ -230,7 +281,7 @@ function ProductMegaMenu({ onClose }) {
             ))}
           </div>
 
-          <RecommendationBox onClose={onClose} />
+          <BrandingBox onClose={onClose} />
         </div>
       </div>
     </div>
@@ -288,105 +339,7 @@ function ServicesMegaMenu({ onClose }) {
             ))}
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-            <div className="text-sm font-bold text-white">
-              Service path
-            </div>
-
-            <div className="mt-4 grid gap-3">
-              {['Advisory', 'Design', 'Build', 'Support'].map((step, index) => (
-                <div key={step} className="flex items-center gap-3">
-                  <div className="grid h-7 w-7 place-items-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-300">
-                    {index + 1}
-                  </div>
-                  <div className="text-sm font-semibold text-slate-300">
-                    {step}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-5 border-t border-white/10 pt-5">
-              <p className="text-sm leading-6 text-slate-400">
-                Not sure where to start? Share the problem and I’ll recommend
-                the right path.
-              </p>
-
-              <Link
-                to="/contact"
-                onClick={onClose}
-                className="mt-5 inline-flex rounded-full bg-blue-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400"
-              >
-                Ask Recommendation
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MegaMenuHeader({ eyebrow, title, subtitle, onClose }) {
-  return (
-    <div className="mb-6 flex items-start justify-between gap-6">
-      <div>
-        <div className="text-xs font-bold uppercase tracking-[0.22em] text-blue-300">
-          {eyebrow}
-        </div>
-        <h3 className="mt-2 text-2xl font-extrabold text-white">{title}</h3>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
-          {subtitle}
-        </p>
-      </div>
-
-      <button
-        type="button"
-        onClick={onClose}
-        className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
-        aria-label="Close menu"
-      >
-        ×
-      </button>
-    </div>
-  )
-}
-
-function RecommendationBox({ onClose }) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-      <div className="text-sm font-bold text-white">
-        Not sure where to start?
-      </div>
-
-      <p className="mt-3 text-sm leading-6 text-slate-400">
-        Tell me your business problem and I’ll recommend the right template,
-        data product, app, or advisory path.
-      </p>
-
-      <Link
-        to="/contact"
-        onClick={onClose}
-        className="mt-5 inline-flex rounded-full bg-blue-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400"
-      >
-        Ask for Recommendation
-      </Link>
-
-      <div className="mt-5 border-t border-white/10 pt-5">
-        <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-          Start with
-        </div>
-
-        <div className="mt-3 grid gap-2 text-sm text-slate-300">
-          <Link to="/products/sop-control" onClick={onClose} className="hover:text-white">
-            SOP & Control Templates
-          </Link>
-          <Link to="/products/excel-tools" onClick={onClose} className="hover:text-white">
-            Excel Business Tools
-          </Link>
-          <Link to="/products/small-apps" onClick={onClose} className="hover:text-white">
-            Small Business Applications
-          </Link>
+          <BrandingBox onClose={onClose} />
         </div>
       </div>
     </div>
@@ -436,38 +389,7 @@ function ExpertiseMegaMenu({ onClose }) {
             ))}
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-            <div className="text-sm font-bold text-white">
-              How this connects
-            </div>
-
-            <div className="mt-4 grid gap-3">
-              {['Control', 'Operations', 'Data', 'Applications'].map((step, index) => (
-                <div key={step} className="flex items-center gap-3">
-                  <div className="grid h-7 w-7 place-items-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-300">
-                    {index + 1}
-                  </div>
-                  <div className="text-sm font-semibold text-slate-300">
-                    {step}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-5 border-t border-white/10 pt-5">
-              <p className="text-sm leading-6 text-slate-400">
-                This website is built around practical business problems, not isolated technical skills.
-              </p>
-
-              <Link
-                to="/contact"
-                onClick={onClose}
-                className="mt-5 inline-flex rounded-full bg-blue-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400"
-              >
-                Discuss a Problem
-              </Link>
-            </div>
-          </div>
+          <BrandingBox onClose={onClose} />
         </div>
       </div>
     </div>
@@ -521,40 +443,83 @@ function CaseStudiesMegaMenu({ onClose }) {
             ))}
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-            <div className="text-sm font-bold text-white">
-              Why case studies matter
-            </div>
+          <BrandingBox onClose={onClose} />
+        </div>
+      </div>
+    </div>
+  )
+}
 
-            <p className="mt-3 text-sm leading-6 text-slate-400">
-              These are not theory pages. They show how business problems were
-              converted into systems, controls, data products, and workflows.
-            </p>
+function MegaMenuHeader({ eyebrow, title, subtitle, onClose }) {
+  return (
+    <div className="mb-6 flex items-start justify-between gap-6">
+      <div>
+        <div className="text-xs font-bold uppercase tracking-[0.22em] text-blue-300">
+          {eyebrow}
+        </div>
+        <h3 className="mt-2 text-2xl font-extrabold text-white">{title}</h3>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+          {subtitle}
+        </p>
+      </div>
 
-            <div className="mt-5 grid gap-3">
-              {['Problem', 'System Built', 'Tools Used', 'Business Impact'].map(
-                (step, index) => (
-                  <div key={step} className="flex items-center gap-3">
-                    <div className="grid h-7 w-7 place-items-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-300">
-                      {index + 1}
-                    </div>
-                    <div className="text-sm font-semibold text-slate-300">
-                      {step}
-                    </div>
-                  </div>
-                ),
-              )}
-            </div>
+      <button
+        type="button"
+        onClick={onClose}
+        className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+    </div>
+  )
+}
 
-            <Link
-              to="/contact"
-              onClick={onClose}
-              className="mt-5 inline-flex rounded-full bg-blue-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400"
-            >
-              Discuss Similar Work
+function BrandingBox({ onClose }) {
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+      <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-500/15 blur-3xl" />
+      <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-slate-500/10 blur-3xl" />
+
+      <div className="relative">
+        <div className="flex justify-center">
+          <BrandMark size="large" />
+        </div>
+
+        <div className="mt-6 text-center">
+          <div className="font-[Georgia] text-2xl font-semibold tracking-tight text-white">
+            NG Advisory Co.
+          </div>
+          <p className="mx-auto mt-3 max-w-[220px] text-sm leading-6 text-slate-400">
+            Business control, data products, and practical systems for growing companies.
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+            Start here
+          </div>
+
+          <div className="mt-3 grid gap-2 text-sm text-slate-300">
+            <Link to="/products/sop-control" onClick={onClose} className="hover:text-white">
+              SOP & Control Templates
+            </Link>
+            <Link to="/products/excel-tools" onClick={onClose} className="hover:text-white">
+              Excel Business Tools
+            </Link>
+            <Link to="/services" onClick={onClose} className="hover:text-white">
+              Advisory & Implementation
             </Link>
           </div>
         </div>
+
+        <Link
+          to="/contact"
+          onClick={onClose}
+          className="mt-5 inline-flex w-full justify-center rounded-full bg-blue-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400"
+        >
+          Ask for Recommendation
+        </Link>
       </div>
     </div>
   )

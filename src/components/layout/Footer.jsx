@@ -12,23 +12,27 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-2xl bg-blue-500 text-sm font-black text-white shadow-lg shadow-blue-500/25">
-                NG
-              </div>
+              <div className="flex h-10 w-10 flex-col items-center justify-center rounded-xl border border-blue-900/70 bg-[#041527] shadow-lg shadow-blue-950/30">
+  <div className="font-[Georgia] text-[13px] font-bold leading-none text-white">
+    NG
+  </div>
+  <div className="mt-0.5 font-[Georgia] text-[7px] font-semibold leading-none tracking-[0.04em] text-slate-300">
+    &amp;Co.
+  </div>
+</div>
 
-              <div>
-                <div className="text-base font-bold text-white">
-                  NG Business Systems
-                </div>
-                <div className="text-xs text-slate-400">
-                  Practical systems for SMEs
-                </div>
-              </div>
+<div>
+  <div className="font-[Georgia] text-lg font-semibold tracking-tight text-white">
+    NG Advisory Co.
+  </div>
+  <div className="text-xs text-slate-400">
+    Business Control · Data Products · Practical Systems
+  </div>
+</div>
             </div>
 
             <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
-              SOPs, data products, warehouse controls, and lightweight business
-              applications for companies that need better control.
+              Practical advisory, SOPs, data products, workflow tools, and lightweight business applications for growing companies.
             </p>
           </div>
 
@@ -58,13 +62,13 @@ export default function Footer() {
               to="/contact"
               className="mt-5 inline-block rounded-full bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-400"
             >
-              Contact Me
+              Contact Us
             </Link>
           </div>
         </div>
 
         <div className="mt-8 border-t border-white/10 pt-4 text-xs text-slate-500">
-          © {new Date().getFullYear()} NG Business Systems. All rights reserved.
+          © {new Date().getFullYear()} NG Advisory Co. All rights reserved.
         </div>
       </div>
     </footer>
