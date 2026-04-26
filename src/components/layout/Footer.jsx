@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 border-t border-white/10 pt-4 text-xs text-slate-500">
-          © {new Date().getFullYear()} NG Business Systems. All rights reserved. Test deploy.
+          © {new Date().getFullYear()} NG Business Systems. All rights reserved.
         </div>
       </div>
     </footer>
