@@ -10,7 +10,13 @@ const contactReasons = [
   'Case Study / Similar Work',
   'Content / Collaboration',
 ]
-
+const countryOptions = [
+  'United Arab Emirates','Saudi Arabia',
+  'Qatar','Oman','Bahrain','Kuwait',
+  'Libya','Lebanon','Turkey','India',
+  'United Kingdom','Australia','New Zealand','Japan',
+  'European Union','United States','Canada','Other',
+]
 const nextSteps = [
   'I review the problem and category selected.',
   'I reply with the best next path: product, advisory, design, or implementation.',
@@ -142,6 +148,7 @@ export default function Contact() {
 
               <div className="mt-6 grid gap-2">
                 {contactReasons.map((reason) => (
+                  
                   <button
                     key={reason}
                     type="button"
@@ -237,12 +244,23 @@ export default function Contact() {
                   onChange={handleChange}
                 />
 
-                <Field
-                  label="Country"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                />
+               <div>
+  <label className="text-sm font-bold text-slate-800">
+    Country
+  </label>
+  <select
+    name="country"
+    value={formData.country}
+    onChange={handleChange}
+    className="mt-2 w-full rounded-2xl border border-slate-200 bg-[#f4f7fb] px-4 py-3 text-sm font-semibold text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white"
+  >
+    {countryOptions.map((country) => (
+      <option key={country || 'empty'} value={country}>
+        {country || 'Select country'}
+      </option>
+    ))}
+  </select>
+</div>
               </div>
 
               <div>

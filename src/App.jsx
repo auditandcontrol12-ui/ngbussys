@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 
+
 import Home from './pages/Home'
 import Products from './pages/Products'
 import ProductCategory from './pages/ProductCategory'
@@ -8,6 +9,7 @@ import ProductDetail from './pages/ProductDetail'
 import Services from './pages/Services'
 import Expertise from './pages/Expertise'
 import CaseStudies from './pages/CaseStudies'
+import Team from './pages/Team'
 import Blog from './pages/Blog'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
@@ -27,6 +29,7 @@ export default function App() {
         <Route path="/expertise" element={<Expertise />} />
         <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/case-studies/:caseStudySlug" element={<CaseStudyDetail />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />

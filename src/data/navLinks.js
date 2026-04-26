@@ -4,6 +4,6 @@ export const navLinks = [
   { label: 'Services', path: '/services' },
   { label: 'Expertise', path: '/expertise' },
   { label: 'Case Studies', path: '/case-studies' },
+  { label: 'Team', path: '/team' },
   { label: 'Blog', path: '/blog' },
-  { label: 'Contact', path: '/contact' },
 ]
