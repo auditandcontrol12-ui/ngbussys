@@ -92,7 +92,7 @@ if ($LASTEXITCODE -eq 0) {
 
 # Push deploy branch
 Write-Host "Pushing deploy branch..." -ForegroundColor Cyan
-git push origin deploy
+git push --force-with-lease origin deploy
 
 # Return to main
 Write-Host "Returning to main branch..." -ForegroundColor Cyan
